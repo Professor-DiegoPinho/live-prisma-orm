@@ -5,5 +5,6 @@ export type Phone = {
 
 export type CreateContactData = {
   name: string;
-  phones: Phone[]
+  phones: Phone[];
+  favorite: boolean;
 }

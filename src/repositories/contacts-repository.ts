@@ -11,22 +11,23 @@ export async function findAll() {
 }
 
 export async function insert(contactData: CreateContactData) {
-  const { name, phones } = contactData;
+  const { name, phones, favorite } = contactData;
 
   try {
     await connection.query("BEGIN");
 
     const { rows } = await connection.query(`
-      INSERT INTO contacts (name) VALUES ($1) RETURNING id;
-    `, [name]);
-    const [{ id: contactId }] = rows;
+      INSERT INTO contacts (name, favorite) VALUES ($1, $2) RETURNING id;
+    `, [name, favorite]);
 
+    const [{ id: contactId }] = rows;
     for (let phone of phones) {
       const { title, number } = phone;
       await connection.query(`
         INSERT INTO phones (title, number, "contactId") VALUES ($1, $2, $3);
       `, [title, number, contactId]);
     }
+
     await connection.query("COMMIT");
   } catch (error) {
     await connection.query("ROLLBACK");

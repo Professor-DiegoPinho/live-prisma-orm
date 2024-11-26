@@ -8,7 +8,8 @@ const contactsSchema = Joi.object<CreateContactData>({
       title: Joi.string().required(),
       number: Joi.string().required(),
     })
-  ).required()
+  ).required(),
+  favorite: Joi.boolean().required()
 });
 
 export default contactsSchema;

@@ -15,3 +15,5 @@ CREATE TABLE "phones" (
 );
 
 ALTER TABLE "phones" ADD CONSTRAINT "phones_contactId_fkey" FOREIGN KEY ("contactId") REFERENCES "contacts"("id");
+
+ALTER TABLE "contacts" ADD COLUMN "favorite" BOOLEAN NOT NULL DEFAULT FALSE;
