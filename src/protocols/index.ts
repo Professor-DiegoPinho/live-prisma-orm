@@ -1,10 +1,5 @@
-export type Phone = {
-  title: string;
-  number: number;
-}
+import { Contact, Phone } from "@prisma/client";
 
-export type CreateContactData = {
-  name: string;
-  phones: Phone[];
-  favorite: boolean;
-}
+export type CreateContactData = Omit<Contact, "id"> & {
+  phones: Omit<Phone, "id" | "contactId">[]
+};
